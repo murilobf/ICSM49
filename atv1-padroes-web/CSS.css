@@ -1,0 +1,40 @@
+body{
+    margin: 0;  
+    padding: 1%;
+}
+h1{
+    text-align: center;
+}
+
+h2{
+    text-transform: uppercase;
+}
+
+header{
+    background-color: aliceblue;
+    padding: 1%;
+}
+
+header > h1{
+    margin-top: 0;
+}
+
+.header-elements{
+    display: flex;
+    justify-content: space-between;
+}
+
+p{
+    margin-block: 0px;
+}
+
+section{
+    border-top: solid 1px gainsboro;
+    padding-block: 1%;
+}
+
+.sumario{
+    display:grid
+}
+
+
