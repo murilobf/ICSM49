@@ -21,9 +21,8 @@ footer{
 }
 
 footer > ul{
-    list-style: none;
     padding-left: 0;
-}
+}   
 
 h1{
     text-align: center;
@@ -59,6 +58,15 @@ html{
     line-break: auto;
 }
 
+.lista-imagens{
+    display: flex;
+    flex-direction: column;
+    padding: 1% 0;
+}
+
+.lista-imagens > img{
+    margin: auto;
+}
 
 .logo-contato{
     height: 1em;
@@ -73,13 +81,24 @@ p{
     margin-block: 0px;
 }
 
-section, nav{
-    padding-left: 1%;
+#projetos-futuros li{
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    
+    max-width: 20%;
+}
+
+#projetos-futuros li label{
+    align-self: center;
+    margin-bottom: 30px;
 }
 
 section, nav{
     border-top: solid 1px gainsboro;
     padding-block: 1%;
+    padding-left: 1%;
 }
 
 .sumario{
@@ -88,5 +107,6 @@ section, nav{
 
 ul{
     margin-block: 0;
+    list-style: none;
 }
 
