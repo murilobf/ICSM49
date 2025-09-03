@@ -10,6 +10,7 @@
 
     <body>
         <header>
+            <img src="imgs/utfpr.png" alt="Logo da Universidade Tecnológica Federal do Paraná">
             <h1>Situação do curso Sistemas de informação de Murilo Bontorin Franco</h1>
 
             <div class = "header-elements">
@@ -31,7 +32,7 @@
         </header>
 
         <main>
-            <section class = "sumario">
+            <nav class = "sumario">
                 <h2>Sumário</h2>
 
                 <a href = "#situacao-atual">Situação atual</a>
@@ -39,16 +40,18 @@
                 <a href = "#disciplinas-faltantes">Lista de disciplinas obrigatórias faltantes</a>
                 <a href = "#situacao-outros">Situação de outros elementos</a>
                 <a href = "#projetos-futuros">Projetos futuros</a>
-            </section>
+            </nav>
 
             <section id = "situacao-atual">
 
                 <h2>Situação atual</h2>
                 <p>Período: 5º</p>
+                <p>CR: 0,8348</p>
                 <p>Número de disciplinas concluídas: 29</p>
                 <p>Carga horária total realizada: 1260</p>
-                <p>Carga horária total faltante: 1690</p>
-                <p>CR: 0,8348</p>
+                <p>Carga horária total faltante: 1690</p> 
+                <label for="progresso-curso">Progresso do curso:</label>
+                <progress id="progresso-curso" value="1260" max="2970"></progress>
 
             </section>
 
@@ -146,19 +149,20 @@
         </main>
 
         <footer>
-            <div class = "footer-element">
-                <p>
-                    <img class="logo-contato" src="imgs/linkedin.png">
+            <ul class = "footer-element">
+                <li>
+                    <img class="logo-contato" src="imgs/linkedin.png" alt="Logo do LinkedIn">
                     <a href="https://www.linkedin.com/in/murilo-bontorin-franco/">LinkedIn</a>
-                </p>
-                <p>
-                    <img class="logo-contato" src="imgs/github.png">
+                </li>
+                <li>
+                    <img class="logo-contato" src="imgs/github.png" alt="Logo do Linkedin">
                     <a href="https://github.com/murilobf/">GitHub</a>
-                </p>
-            </div>
-            <div class = "footer-element">
+                </li>
+            </ul>
 
-            </div>
+            <small class = "copyleft">
+                <span title="Copyleft">©</span> 2025 Murilo Bontorin Franco — Este site é de uso livre.
+            </small>
         </footer>
 
     </body>
