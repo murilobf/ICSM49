@@ -29,7 +29,7 @@ body{
     word-wrap: break-word;
 }
 
-.container-imagem{
+figure{
 
     flex: 0 0 50%;
     display: flex;
@@ -48,6 +48,9 @@ html{
     height: 100%;
 }
 
+img{
+    width: 50%;
+}
 
 footer{
     background-color: aliceblue;
