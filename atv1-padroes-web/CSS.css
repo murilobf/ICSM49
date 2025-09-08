@@ -58,13 +58,19 @@ html{
     line-break: auto;
 }
 
+figure{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .lista-imagens{
     display: flex;
     flex-direction: column;
     padding: 1% 0;
 }
 
-.lista-imagens > img{
+.lista-imagens > img, figure{
     margin: auto;
 }
 
@@ -86,19 +92,13 @@ p{
 
     display: flex;
     flex-direction: column;
-    
-    max-width: 20%;
-}
 
-#projetos-futuros li label{
-    align-self: center;
     margin-bottom: 30px;
 }
 
 section, nav{
     border-top: solid 1px gainsboro;
-    padding-block: 1%;
-    padding-left: 1%;
+    padding: 1%;
 }
 
 .sumario{
