@@ -33,6 +33,10 @@ h2{
     margin: 0;
 }
 
+h2::first-letter{
+    font-size: 1.5em;
+}
+
 header{
     background-color: aliceblue;
     padding: 1%;

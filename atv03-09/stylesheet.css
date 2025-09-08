@@ -1,10 +1,10 @@
 a{
     text-decoration: none;
-    color:#586BA4;
+    color:#4860a7;
 }
 
 a:visited{
-    color: #004E89;
+    color: #691500;
 }
 
 a:hover{
@@ -93,4 +93,8 @@ main{
     padding: 2%;
 
     flex: 1;
+}
+
+.paragrafo-introducao{
+    max-width: 33%;
 }
