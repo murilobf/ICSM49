@@ -1,5 +1,5 @@
-const corpoTabelaMusicas = document.querySelector(".corpo-tabela-musicas")
-let tabelaDados = []
+const corpoTabelaMusicas = document.querySelector(".corpo-tabela-musicas");
+var tabelaDados = [];
 
 function carregaDados(){
     fetch('./dados.txt')
@@ -22,36 +22,62 @@ function carregaDados(){
             let nomeBanda = '';
 
             //Ignora a posição
-            elementosAux = elementosAux.slice(1)
+            elementosAux = elementosAux.slice(1);
 
             //Pega todas as palavras que compõem o nome da banda
             elementosAux.forEach(palavra => {
                 nomeBanda += ' ' +palavra;
             })
 
-            tabelaDados[i][1] = nomeBanda.trim()
+            tabelaDados[i][1] = nomeBanda.trim();
 
             //O bloco abaixo pega o nome do album
             //Já que será repetido o valor é colocado na variável abaixo
-            albumAno = linha.split('–')[1].trim()
+            albumAno = linha.split('–')[1].trim();
             
             //Pega o index da string em que o ano começa e termina, ele sempre segue o padrão nome_album (yyyy) então pode ser feito assim
-            inicioAno = albumAno.length - 5
-            fimAno =  inicioAno + 4
+            inicioAno = albumAno.length - 5;
+            fimAno =  inicioAno + 4;
 
-            tabelaDados[i][2] = albumAno.substring(0, inicioAno - 2) //OBS: não é a melhor forma mas como todos os dados seguem esse padrão funciona. O -2 é pra tirar o parenteses e o espaço
+            tabelaDados[i][2] = albumAno.substring(0, inicioAno - 2); //OBS: não é a melhor forma mas como todos os dados seguem esse padrão funciona. O -2 é pra tirar o parenteses e o espaço
             
             //Pega o ano 
-            tabelaDados[i][3] = albumAno.substring(inicioAno, fimAno) //Idem a observação acima
+            tabelaDados[i][3] = albumAno.substring(inicioAno, fimAno); //Idem a observação acima
             
             //Pega o número de vendas
-            tabelaDados[i][4] = linha.split('–')[2].trim()
+            tabelaDados[i][4] = linha.split('–')[2].trim();
         });
-
-        
+                    //Chama a função para preencher a tabela
+                    populaTabela();
     })
 }
 
-carregaDados()
+carregaDados();
 
 //Criar as linhas da coluna com base nos elementos carregados anteriormente
+function populaTabela(){
+    tabelaDados.forEach(linha => {
+        const linhaTabela = document.createElement("tr");
+
+        const posicao = document.createElement("td");
+        const artista = document.createElement("td");
+        const album = document.createElement("td");
+        const ano = document.createElement("td");
+        const vendas = document.createElement("td");
+
+        posicao.innerHTML = `${linha[0]}`;
+        artista.innerHTML = `${linha[1]}`;
+        album.innerHTML = `${linha[2]}`;
+        ano.innerHTML = `${linha[3]}`;
+        vendas.innerHTML = `${linha[4]}`;
+
+        linhaTabela.appendChild(posicao);
+        linhaTabela.appendChild(artista);
+        linhaTabela.appendChild(album);
+        linhaTabela.appendChild(ano);
+        linhaTabela.appendChild(vendas);
+
+        corpoTabelaMusicas.appendChild(linhaTabela)
+    })
+}
+
