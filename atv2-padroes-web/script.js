@@ -31,20 +31,27 @@ function carregaDados(){
 
             tabelaDados[i][1] = nomeBanda.trim()
 
-            //Pega o nome do album
-            tabelaDados[i][2] = linha.split('–')[1].split('(1')[0] //TODO: essa forma é extremamente porca com (1, refazer de um jeito decente
+            //O bloco abaixo pega o nome do album
+            //Já que será repetido o valor é colocado na variável abaixo
+            albumAno = linha.split('–')[1].trim()
+            
+            //Pega o index da string em que o ano começa e termina, ele sempre segue o padrão nome_album (yyyy) então pode ser feito assim
+            inicioAno = albumAno.length - 5
+            fimAno =  inicioAno + 4
 
-            //Pega o ano //TODO: pegar o ano 
-            tabelaDados[i][3] = linha.split('–')[1].split('(1')[1] //TODO: essa forma é extremamente porca com (1, refazer de um jeito decente
+            tabelaDados[i][2] = albumAno.substring(0, inicioAno - 2) //OBS: não é a melhor forma mas como todos os dados seguem esse padrão funciona. O -2 é pra tirar o parenteses e o espaço
+            
+            //Pega o ano 
+            tabelaDados[i][3] = albumAno.substring(inicioAno, fimAno) //Idem a observação acima
             
             //Pega o número de vendas
-            tabelaDados[i][4] = linha.split('–')[2]
+            tabelaDados[i][4] = linha.split('–')[2].trim()
         });
 
         
     })
 }
+
 carregaDados()
-console.log(tabelaDados)
 
 //Criar as linhas da coluna com base nos elementos carregados anteriormente
