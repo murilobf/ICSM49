@@ -1,0 +1,44 @@
+table{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-collapse: collapse;
+    width:80%;
+}
+
+th{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-collapse: collapse;
+    background-color: #ff9292;
+}
+
+td{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even){
+    background-color: #c5c5c5;
+}
+
+td:nth-child(1), td:nth-child(4), td:nth-child(5) {
+    text-align: right;
+}
+
+td:nth-child(2), td:nth-child(3){
+    text-align: left;
+}
+
+table caption {
+    caption-side: bottom; /* move a legenda para baixo */
+    text-align: center;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+
+
