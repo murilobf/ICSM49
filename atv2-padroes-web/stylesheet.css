@@ -40,5 +40,8 @@ table caption {
     margin-top: 10px;
 }
 
+.tabela-div{
+    overflow-x: auto;
+}
 
 
