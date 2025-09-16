@@ -1,5 +1,30 @@
-const corpoTabelaMusicas = document.querySelector(".corpo-tabela-musicas");
 var tabelaDados = [];
+
+const corpoTabelaMusicas = document.querySelector(".corpo-tabela-musicas");
+
+const headerPosicao = document.getElementById("posicao");
+const headerArtista = document.getElementById("artista");
+const headerNome = document.getElementById("nome");
+const headerAno = document.getElementById("ano");
+const headerQuantidade = document.getElementById("quantidade");
+
+let ultimaColuna = 0
+
+headerPosicao.addEventListener("click", function () {
+    ordena(0)
+});
+headerArtista.addEventListener("click", function () {
+    ordena(1)
+});
+headerNome.addEventListener("click", function () {
+    ordena(2)
+});
+headerAno.addEventListener("click", function () {
+    ordena(3)
+});
+headerQuantidade.addEventListener("click", function () {
+    ordena(4)
+});
 
 function carregaDados(){
     fetch('./dados.txt')
@@ -47,8 +72,8 @@ function carregaDados(){
             //Pega o número de vendas
             tabelaDados[i][4] = linha.split('–')[2].trim();
         });
-                    //Chama a função para preencher a tabela
-                    populaTabela();
+        //Chama a função para preencher a tabela
+        populaTabela();
     })
 }
 
@@ -56,6 +81,10 @@ carregaDados();
 
 //Criar as linhas da coluna com base nos elementos carregados anteriormente
 function populaTabela(){
+
+    //Limpa as tabelas antes ed popular de novo
+    corpoTabelaMusicas.innerHTML = ''
+
     tabelaDados.forEach(linha => {
         const linhaTabela = document.createElement("tr");
 
@@ -81,3 +110,32 @@ function populaTabela(){
     })
 }
 
+function ordena(coluna){
+
+    if(ultimaColuna == coluna){
+        tabelaDados.sort((a,b) => {
+            if(!isNaN(a[coluna])){
+                return parseInt(a[coluna]) > parseInt(b[coluna])
+            }
+            else{
+                return a[coluna] > b[coluna]
+            }
+        })
+        ultimaColuna = null
+    }
+
+    else{
+        tabelaDados.sort((a,b) => {
+            if(!isNaN(a[coluna])){
+                return parseInt(a[coluna]) < parseInt(b[coluna])
+            }
+            else{
+                return a[coluna] < b[coluna]
+            }
+        })
+        ultimaColuna = coluna
+    }
+
+    //Refaz a tabela
+    populaTabela()
+}
