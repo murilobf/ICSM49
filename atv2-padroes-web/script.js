@@ -82,60 +82,60 @@ carregaDados();
 //Criar as linhas da coluna com base nos elementos carregados anteriormente
 function populaTabela(){
 
-    //Limpa as tabelas antes ed popular de novo
+    //Limpa as tabelas antes de popular de novo
     corpoTabelaMusicas.innerHTML = ''
 
-    tabelaDados.forEach(linha => {
+    // Guardar valores e referências de cada coluna
+    let ultimoValor = [null, null, null, null, null];
+    let tdRef = [null, null, null, null, null];
+    let rowspan = [1, 1, 1, 1, 1];
+
+    tabelaDados.forEach((linha) => {
         const linhaTabela = document.createElement("tr");
 
-        const posicao = document.createElement("td");
-        const artista = document.createElement("td");
-        const album = document.createElement("td");
-        const ano = document.createElement("td");
-        const vendas = document.createElement("td");
+        linha.forEach((valor, colIndex) => {
+            if (valor === ultimoValor[colIndex]) {
+                 // Se o valor é igual ao anterior, só aumenta o rowspan
+                rowspan[colIndex]++;
+                tdRef[colIndex].setAttribute("rowspan", rowspan[colIndex]);
+            } else {
+                // Se mudou, cria célula nova
+                const td = document.createElement("td");
+                td.innerHTML = valor;
+                linhaTabela.appendChild(td);
+                // Atualiza controles
+                tdRef[colIndex] = td;
+                ultimoValor[colIndex] = valor;
+                rowspan[colIndex] = 1;
+                }
+        });
 
-        posicao.innerHTML = `${linha[0]}`;
-        artista.innerHTML = `${linha[1]}`;
-        album.innerHTML = `${linha[2]}`;
-        ano.innerHTML = `${linha[3]}`;
-        vendas.innerHTML = `${linha[4]}`;
-
-        linhaTabela.appendChild(posicao);
-        linhaTabela.appendChild(artista);
-        linhaTabela.appendChild(album);
-        linhaTabela.appendChild(ano);
-        linhaTabela.appendChild(vendas);
-
-        corpoTabelaMusicas.appendChild(linhaTabela)
-    })
+        corpoTabelaMusicas.appendChild(linhaTabela);
+    });
 }
 
-function ordena(coluna){
-
-    if(ultimaColuna == coluna){
-        tabelaDados.sort((a,b) => {
-            if(!isNaN(a[coluna])){
-                return parseInt(a[coluna]) > parseInt(b[coluna])
+function ordena(coluna) {
+    if (ultimaColuna === coluna) {
+        // Ordem decrescente
+        tabelaDados.sort((a, b) => {
+            if (!isNaN(a[coluna]) && !isNaN(b[coluna])) {
+                return parseInt(b[coluna]) - parseInt(a[coluna]);
+            } else {
+                return b[coluna].localeCompare(a[coluna]);
             }
-            else{
-                return a[coluna] > b[coluna]
+        });
+        ultimaColuna = null;
+    } else {
+        // Ordem crescente
+        tabelaDados.sort((a, b) => {
+            if (!isNaN(a[coluna]) && !isNaN(b[coluna])) {
+                return parseInt(a[coluna]) - parseInt(b[coluna]);
+            } else {
+                return a[coluna].localeCompare(b[coluna]);
             }
-        })
-        ultimaColuna = null
+        });
+        ultimaColuna = coluna;
     }
 
-    else{
-        tabelaDados.sort((a,b) => {
-            if(!isNaN(a[coluna])){
-                return parseInt(a[coluna]) < parseInt(b[coluna])
-            }
-            else{
-                return a[coluna] < b[coluna]
-            }
-        })
-        ultimaColuna = coluna
-    }
-
-    //Refaz a tabela
-    populaTabela()
+    populaTabela();
 }
