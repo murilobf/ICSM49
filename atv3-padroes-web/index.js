@@ -55,67 +55,196 @@ let artistas = []
 const dropdownArtista = document.getElementById('melhor-artista');
 const fieldsetAlbuns = document.getElementById('melhores-albuns');
 
+// Modifique sua função carregaDados para esta versão:
 function carregaDados(){
-    
-    let linhas = TEXTO.split('\n');
+    const linhas = TEXTO.split('\n');
 
-    linhas.forEach((linha,i) => {
-        //Pega o nome do artista/banda
-        elementosAux = linha.split('–', 1)[0].split(' ');
-        let nomeBanda = '';
-
-        //Ignora a posição
-        elementosAux = elementosAux.slice(1);
-
-        //Pega todas as palavras que compõem o nome da banda
-        elementosAux.forEach(palavra => {
-            nomeBanda += ' ' +palavra;
-        })
-
-        //Pega apenas artistas que não estão na lista
-        if(!artistas.includes(nomeBanda)){
-            artistas[i] = nomeBanda.trim();
-        }
-
-        //O bloco abaixo pega o nome do album
-        albumAno = linha.split('–')[1].trim();
-        
-        //Pega o index da string em que o ano começa e termina, ele sempre segue o padrão nome_album (yyyy) então pode ser feito assim
-        inicioAno = albumAno.length - 5;
-
-        albuns[i] = albumAno.substring(0, inicioAno - 2); //OBS: não é a melhor forma mas como todos os dados seguem esse padrão funciona. O -2 é pra tirar o parenteses e o espaço        
-    });
-    //Chama as funções para preencher as opções
-    populaArtistas(artistas);
-    populaAlbuns(albuns);
+    // Remove a lógica antiga de extração de dados daqui
+    // e apenas chama as novas funções
+    populaArtistasAgrupados(linhas);
+    populaAlbunsAgrupados(linhas);
 }
 
 carregaDados();
 
-function populaArtistas(artistas){
-    artistas.forEach((artista) => {
-        const opcao = document.createElement("option");
+function populaAlbunsAgrupados(linhas) {
+    const albunsPorDecada = {};
 
-        opcao.textContent = artista;
-        opcao.setAttribute('value',artista.toLowerCase());
+    linhas.forEach(linha => {
+        const partes = linha.split('–');
+        const albumInfo = partes[1].trim();
+        const matchAno = albumInfo.match(/\((\d{4})\)/);
 
-        dropdownArtista.appendChild(opcao);
-    })
+        if (matchAno) {
+            const ano = parseInt(matchAno[1]);
+            const decada = Math.floor(ano / 10) * 10;
+            const nomeAlbum = albumInfo.substring(0, matchAno.index).trim();
+            
+            if (!albunsPorDecada[decada]) {
+                albunsPorDecada[decada] = [];
+            }
+            albunsPorDecada[decada].push(nomeAlbum);
+        }
+    });
+
+    // Ordena as décadas
+    Object.keys(albunsPorDecada).sort().forEach(decada => {
+        const fieldsetDecada = document.createElement('fieldset');
+        const legendDecada = document.createElement('legend');
+        legendDecada.textContent = `Década de ${decada}`;
+        fieldsetDecada.appendChild(legendDecada);
+
+        albunsPorDecada[decada].forEach(album => {
+            const labelCheckbox = document.createElement('label');
+            const checkboxAlbum = document.createElement('input');
+            const valorAlbum = album.toLowerCase().replace(/ /g, '-');
+
+            checkboxAlbum.setAttribute('type', 'checkbox');
+            checkboxAlbum.setAttribute('name', 'albuns_preferidos'); // Nome unificado para facilitar a contagem
+            checkboxAlbum.setAttribute('value', valorAlbum);
+            
+            labelCheckbox.appendChild(checkboxAlbum);
+            labelCheckbox.appendChild(document.createTextNode(` ${album}`));
+            fieldsetDecada.appendChild(labelCheckbox);
+        });
+
+        fieldsetAlbuns.appendChild(fieldsetDecada);
+    });
 }
 
-function populaAlbuns(albuns){
-    albuns.forEach((album) => {
-        const labelCheckbox = document.createElement('label');
-        const checkboxAlbum = document.createElement('input');
+/**
+ * Agrupa os artistas por letra inicial e os insere no dropdown.
+ */
+function populaArtistasAgrupados(linhas) {
+    // Extrai artistas únicos e os ordena
+    const artistasUnicos = [...new Set(linhas.map(linha => {
+        const nomeCompleto = linha.split('–')[0];
+        return nomeCompleto.substring(nomeCompleto.indexOf(' ')).trim();
+    }))].sort();
 
-        checkboxAlbum.setAttribute('type','checkbox');
-        checkboxAlbum.setAttribute('value',album.toLowerCase());
-        checkboxAlbum.setAttribute('name',album.toLowerCase());
+    const artistasPorLetra = {};
 
-        labelCheckbox.setAttribute('for',album.toLowerCase());
-        labelCheckbox.appendChild(checkboxAlbum);
+    artistasUnicos.forEach(artista => {
+        const primeiraLetra = artista[0].toUpperCase();
+        if (!artistasPorLetra[primeiraLetra]) {
+            artistasPorLetra[primeiraLetra] = [];
+        }
+        artistasPorLetra[primeiraLetra].push(artista);
+    });
+    
+    Object.keys(artistasPorLetra).forEach(letra => {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = letra;
 
-        labelCheckbox.appendChild(document.createTextNode(album))
-        fieldsetAlbuns.appendChild(labelCheckbox);
-    })
+        artistasPorLetra[letra].forEach(artista => {
+            const opcao = document.createElement("option");
+            opcao.textContent = artista;
+            opcao.value = artista.toLowerCase();
+            optgroup.appendChild(opcao);
+        });
+
+        dropdownArtista.appendChild(optgroup);
+    });
 }
+
+// Seleciona o formulário para adicionar o listener
+const form = document.querySelector('form');
+
+/**
+ * Exibe uma mensagem de erro para um campo específico.
+ */
+function showError(inputId, message) {
+    const input = document.querySelector(`[name=${inputId}]`);
+    input.classList.add('error'); // Adiciona classe para estilizar o campo
+
+    let errorSpan = document.getElementById(`${inputId}-error`);
+    if (!errorSpan) {
+        errorSpan = document.createElement('span');
+        errorSpan.id = `${inputId}-error`;
+        errorSpan.className = 'error-message';
+        // Insere a mensagem de erro após o campo ou seu label
+        input.parentElement.insertBefore(errorSpan, input.nextSibling);
+    }
+    errorSpan.textContent = message;
+    errorSpan.style.display = 'block';
+}
+
+/**
+ * Limpa todas as mensagens de erro e classes de erro.
+ */
+function clearErrors() {
+    document.querySelectorAll('.error-message').forEach(span => {
+        span.textContent = '';
+        span.style.display = 'none';
+    });
+    document.querySelectorAll('.error').forEach(input => {
+        input.classList.remove('error');
+    });
+    // Limpa o erro do fieldset dos álbuns
+    const albunsError = document.getElementById('melhores-albuns-error');
+    if(albunsError) albunsError.style.display = 'none';
+}
+
+/**
+ * Função principal de validação do formulário.
+ */
+function validateForm() {
+    clearErrors();
+    let isValid = true;
+
+    // 1. Validar campos de texto obrigatórios
+    const requiredFields = ['nome', 'email', 'telefone', 'nascimento'];
+    requiredFields.forEach(field => {
+        const input = document.querySelector(`[name=${field}]`);
+        if (!input.value.trim()) {
+            showError(field, 'Este campo é obrigatório.');
+            isValid = false;
+        }
+    });
+
+    // 2. Validar formato de e-mail
+    const emailInput = document.querySelector('[name=email]');
+    if (emailInput.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+            showError('email', 'Por favor, insira um e-mail válido.');
+            isValid = false;
+        }
+    }
+
+    // 3. Validar formato de telefone
+    const telInput = document.querySelector('[name=telefone]');
+    if (telInput.value) {
+        const telRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+        if (!telRegex.test(telInput.value)) {
+            showError('telefone', 'Use o formato (XX) XXXXX-XXXX.');
+            isValid = false;
+        }
+    }
+    
+    // 4. Validar seleção de 3 álbuns
+    const albunsChecked = document.querySelectorAll('input[name="albuns_preferidos"]:checked').length;
+    if (albunsChecked !== 3) {
+        // Mostra o erro no fieldset principal dos álbuns
+        const fieldsetElement = document.getElementById('melhores-albuns');
+        let errorSpan = document.getElementById('melhores-albuns-error');
+        if (!errorSpan) {
+            errorSpan = document.createElement('span');
+            errorSpan.id = `melhores-albuns-error`;
+            errorSpan.className = 'error-message';
+            fieldsetElement.parentNode.insertBefore(errorSpan, fieldsetElement.nextSibling);
+        }
+        errorSpan.textContent = 'Você deve selecionar exatamente 3 álbuns.';
+        errorSpan.style.display = 'block';
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+// Adiciona o listener de evento ao formulário
+form.addEventListener('submit', (event) => {
+    if (!validateForm()) {
+        event.preventDefault(); // Impede o envio do formulário se a validação falhar
+    }
+});
