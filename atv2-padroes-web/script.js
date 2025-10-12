@@ -82,9 +82,6 @@ function carregaDados(){
     
         let linhas = TEXTO.split('\n');
 
-        //Pra cortar o último elemento vazio causado pelo fim do texto
-        linhas.pop()
-
         linhas.forEach((linha,i) => {
             //Inicializa o subarray do array
             tabelaDados[i] = [];
