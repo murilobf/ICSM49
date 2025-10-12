@@ -1,10 +1,6 @@
 <!-- Criar um formulário para registrar os interesses musicais de uma pessoa;
 Deve permitir selecionar 1 ou mais estilos musicais preferidos;
 Deve permitir selecionar 3 álbuns preferidos da lista da atividade de tabelas. mostrar os dados como uma lista de checkboxes;
-Deve permitir informar uma lista longa de nomes de artistas dos estilos escolhidos;
-Deve poder selecionar qual o(a) melhor cantor(a) da história, de uma lista suspensa;
-Oferecer a opção de limpar o formulário;
-Oferecer a opção de enviar o formulário;
 O primeiro elemento do formulário deve receber foco automaticamente;
 Aplicar um estilo coerente em todo o formulário: bom espaçamento entre elementos, indicação de quais elementos são obrigatórios, destaque de qual elemento está com foco, fornecer rótulos para todos os elementos;
 Adicionar formatação ao texto dos botões;
@@ -49,7 +45,7 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
                     <input type="email" name="email" required>
 
                     <label for="telefone">Telefone</label>
-                    <input type="phone" name="telefone" required>
+                    <input type="tel" name="telefone" required>
 
                     <label for="nascimento">Data de Nascimento</label>
                     <input type="date" name="nascimento" required>
@@ -96,13 +92,11 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
 
                 <fieldset id="melhores-albuns">
                     <legend>Selecione até 3 melhores álbuns</legend>
-
-                    <!--Fazer pelo javascript depois também-->
                 </fieldset>
 
                 <label for="melhor-artista">Selecione o melhor artista:</label>
                 <select id="melhor-artista">
-                    <!--Fazer pelo javascript com base na lista da outra atividade depois-->
+                    <option value="">Nenhum</option>
                 </select>
             
 
@@ -115,7 +109,7 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
 
         <footer>
 
-            <p><small>Murilo Bontorin Franco</small></p>
+            <p><small>Marcela de Meira Carvalho &amp; Murilo Bontorin Franco</small></p>
         
         </footer>
 
