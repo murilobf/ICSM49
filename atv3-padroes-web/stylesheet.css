@@ -2,3 +2,51 @@ fieldset{
     display: flex;
     flex-direction: column;
 }
+
+.obrigatorio::after{
+    content: "*";
+    color:red;
+    font-weight:bold;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 5px red;
+}
+
+input[type="submit"], input[type="reset"] {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    background-color: olive;
+    color: white;
+}
+
+input[type="reset"] {
+    background-color: slategrey;
+    color: white;
+}
+
+.error {
+  border-color: #cc0000; /* Define uma cor de borda vermelha e forte */
+  background-color: #fff2f2; /* Adiciona um fundo rosado bem claro para destacar o campo */
+}
+
+/**
+ * Classe para o <span> que contém a mensagem de erro,
+ * também controlada via JavaScript.
+ */
+.error-message {
+  color: #cc0000;         /* Cor do texto da mensagem */
+  font-size: 0.9em;        /* Tamanho da fonte um pouco menor que o padrão */
+  margin-top: 5px;         /* Espaçamento acima da mensagem */
+  margin-bottom: 10px;     /* Espaçamento abaixo da mensagem */
+  display: block;          /* Garante que a mensagem ocupe sua própria linha */
+}
