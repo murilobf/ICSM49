@@ -1,0 +1,124 @@
+<!-- Criar um formulário para registrar os interesses musicais de uma pessoa;
+Deve permitir selecionar 1 ou mais estilos musicais preferidos;
+Deve permitir selecionar 3 álbuns preferidos da lista da atividade de tabelas. mostrar os dados como uma lista de checkboxes;
+Deve permitir informar uma lista longa de nomes de artistas dos estilos escolhidos;
+Deve poder selecionar qual o(a) melhor cantor(a) da história, de uma lista suspensa;
+Oferecer a opção de limpar o formulário;
+Oferecer a opção de enviar o formulário;
+O primeiro elemento do formulário deve receber foco automaticamente;
+Aplicar um estilo coerente em todo o formulário: bom espaçamento entre elementos, indicação de quais elementos são obrigatórios, destaque de qual elemento está com foco, fornecer rótulos para todos os elementos;
+Adicionar formatação ao texto dos botões;
+Criar agrupamentos de elementos por assunto;
+Para listas longas de opções, fornecer agrupamento de opções;
+Definir os padrões mínimos (p.ex. telefone, email);
+Criar validação para todos os campos em Javascript;
+Para itens que tiveram problema de validação, adicionar a informação do problema encontrado junto ao elemento de entrada;-->
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+    <head>
+        <title>ATV3 - Padrões Web</title>
+        <link rel="stylesheet" href="./stylesheet.css">
+        <script defer src="./index.js"></script>
+    </head>
+
+    <body>
+        <header>
+
+            <svg class="logo" viewBox="0 0 400 400" height="5em" width="5em">
+                <rect x="0" y="0" width="50%" height="50%" fill="tomato" opacity="0.75"></rect>
+                <rect x="20%" y="20%" width="50%" height="50%" fill="slategrey" opacity="0. 75"></rect>
+                <rect x="40%" y="40%" width="50%" height="50%" fill="olive" opacity="0.75"></rect>
+            </svg>
+            <h1>Musicas.com</h1>
+        
+        </header>
+
+        <main>
+            
+            <form>
+                <fieldset id="dados-pessoais">
+                    <legend>Insira os dados pessoais</legend>
+
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" required>
+
+                    <label for="telefone">Telefone</label>
+                    <input type="phone" name="telefone" required>
+
+                    <label for="nascimento">Data de Nascimento</label>
+                    <input type="date" name="nascimento" required>
+
+                    <label for="foto">Foto de Perfil</label>
+                    <input type="file" name="foto">
+                </fieldset>
+
+                <fieldset id="dados-estilo">
+                    <legend>Selecione seu gênero musical preferido</legend>
+
+                    
+                    <label for="rock">
+                        <input type="checkbox" name="rock" value="rock">
+                        Rock
+                    </label>
+
+                    <label for="mpb">
+                        <input type="checkbox" name="mpb" value="mpb">    
+                        MPB
+                    </label>
+
+                    <label for="sertanejo">
+                        <input type="checkbox" name="sertanejo" value="sertanejo">
+                        Sertanejo
+                    </label>
+
+                    <label for="pop">
+                        <input type="checkbox" name="pop" value="pop">
+                        Pop
+                    </label>
+
+                    <label for="gospel">
+                        <input type="checkbox" name="gospel" value="gospel">
+                        Gospel
+                    </label>
+
+                    <label for="eletronica">
+                        <input type="checkbox" name="eletronica" value="eletronica">
+                        Eletronica
+                    </label>
+
+                </fieldset>
+
+                <fieldset id="melhores-albuns">
+                    <legend>Selecione até 3 melhores álbuns</legend>
+
+                    <!--Fazer pelo javascript depois também-->
+                </fieldset>
+
+                <label for="melhor-artista">Selecione o melhor artista:</label>
+                <select id="melhor-artista">
+                    <!--Fazer pelo javascript com base na lista da outra atividade depois-->
+                </select>
+            
+
+                <input type="reset" value="Limpar">
+                <input type="submit" value="Enviar">
+
+            </form>
+
+        </main>
+
+        <footer>
+
+            <p><small>Murilo Bontorin Franco</small></p>
+        
+        </footer>
+
+    </body>
+
+</html>
