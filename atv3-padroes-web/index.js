@@ -87,7 +87,7 @@ function populaAlbunsAgrupados(linhas) {
         }
     });
 
-    // Ordena as décadas
+    // Agrupa por década
     Object.keys(albunsPorDecada).sort().forEach(decada => {
         const fieldsetDecada = document.createElement('fieldset');
         const legendDecada = document.createElement('legend');
@@ -112,15 +112,28 @@ function populaAlbunsAgrupados(linhas) {
     });
 }
 
-/**
- * Agrupa os artistas por letra inicial e os insere no dropdown.
- */
 function populaArtistasAgrupados(linhas) {
-    // Extrai artistas únicos e os ordena
-    const artistasUnicos = [...new Set(linhas.map(linha => {
-        const nomeCompleto = linha.split('–')[0];
-        return nomeCompleto.substring(nomeCompleto.indexOf(' ')).trim();
-    }))].sort();
+    //Pega o nome do artista/banda
+    linhas.forEach((linha) => {
+        elementosAux = linha.split('–', 1)[0].split(' ');
+        let nomeBanda = '';
+
+        //Ignora a posição
+        elementosAux = elementosAux.slice(1);
+
+        //Pega todas as palavras que compõem o nome da banda
+        elementosAux.forEach(palavra => {
+            nomeBanda += ' ' +palavra;
+        })
+
+        nomeBanda = nomeBanda.trim()
+        artistas.push(nomeBanda);
+    })
+    
+    //Filtra e pega só a primeira ocorrência de cada nome
+    const artistasUnicos = artistas.filter((value, index, self) => {
+        return self.indexOf(value) === index;
+    }).sort();
 
     const artistasPorLetra = {};
 
@@ -185,66 +198,62 @@ function clearErrors() {
     if(albunsError) albunsError.style.display = 'none';
 }
 
-/**
- * Função principal de validação do formulário.
- */
-function validateForm() {
+function validaForm() {
     clearErrors();
-    let isValid = true;
+    let valido = true;
 
-    // 1. Validar campos de texto obrigatórios
-    const requiredFields = ['nome', 'email', 'telefone', 'nascimento'];
-    requiredFields.forEach(field => {
+    //Valida campos de dados pessoais
+    const camposPessoais = ['nome', 'email', 'telefone', 'nascimento'];
+    camposPessoais.forEach(field => {
         const input = document.querySelector(`[name=${field}]`);
         if (!input.value.trim()) {
             showError(field, 'Este campo é obrigatório.');
-            isValid = false;
+            valido = false;
         }
     });
 
-    // 2. Validar formato de e-mail
+    //Valida formato de e-mail
     const emailInput = document.querySelector('[name=email]');
     if (emailInput.value) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(emailInput.value)) {
             showError('email', 'Por favor, insira um e-mail válido.');
-            isValid = false;
+            valido = false;
         }
     }
 
-    // 3. Validar formato de telefone
+    //Valida formato de telefone
     const telInput = document.querySelector('[name=telefone]');
     if (telInput.value) {
         const telRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
         if (!telRegex.test(telInput.value)) {
             showError('telefone', 'Use o formato (XX) XXXXX-XXXX.');
-            isValid = false;
+            valido = false;
         }
     }
     
-    // 4. Validar seleção de 3 álbuns
-    const albunsChecked = document.querySelectorAll('input[name="albuns_preferidos"]:checked').length;
-    if (albunsChecked !== 3) {
+    //Valida seleção de 1-3 álbuns
+    const qtdeAlbunsMarcados = document.querySelectorAll('input[name="albuns_preferidos"]:checked').length;
+    if (qtdeAlbunsMarcados < 1 || qtdeAlbunsMarcados > 3) {
         // Mostra o erro no fieldset principal dos álbuns
         const fieldsetElement = document.getElementById('melhores-albuns');
-        let errorSpan = document.getElementById('melhores-albuns-error');
-        if (!errorSpan) {
-            errorSpan = document.createElement('span');
-            errorSpan.id = `melhores-albuns-error`;
-            errorSpan.className = 'error-message';
-            fieldsetElement.parentNode.insertBefore(errorSpan, fieldsetElement.nextSibling);
+        let erroSpan = document.getElementById('melhores-albuns-error');
+        if (!errrSpan) {
+            erroSpan = document.createElement('span');
+            erroSpan.id = `melhores-albuns-error`;
+            erroSpan.className = 'error-message';
+            fieldsetElement.parentNode.insertBefore(erroSpan, fieldsetElement.nextSibling);
         }
-        errorSpan.textContent = 'Você deve selecionar exatamente 3 álbuns.';
-        errorSpan.style.display = 'block';
-        isValid = false;
+        erroSpan.textContent = 'Você deve selecionar entre 1 e 3 álbuns.';
+        erroSpan.style.display = 'block';
+        valido = false;
     }
 
-    return isValid;
+    return valido;
 }
 
-// Adiciona o listener de evento ao formulário
 form.addEventListener('submit', (event) => {
-    if (!validateForm()) {
+    if (!validaForm()) {
         event.preventDefault(); // Impede o envio do formulário se a validação falhar
     }
 });

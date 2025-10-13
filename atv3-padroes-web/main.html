@@ -56,35 +56,34 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
 
                 <fieldset id="dados-estilo">
                     <legend>Selecione seu gênero musical preferido</legend>
-
-                    
+ 
                     <label for="rock">
-                        <input type="checkbox" name="rock" value="rock">
+                        <input type="radio" name="genero-preferido" value="rock" required>
                         Rock
                     </label>
 
                     <label for="mpb">
-                        <input type="checkbox" name="mpb" value="mpb">    
+                        <input type="radio" name="genero-preferido" value="mpb">    
                         MPB
                     </label>
 
                     <label for="sertanejo">
-                        <input type="checkbox" name="sertanejo" value="sertanejo">
+                        <input type="radio" name="genero-preferido" value="sertanejo">
                         Sertanejo
                     </label>
 
                     <label for="pop">
-                        <input type="checkbox" name="pop" value="pop">
+                        <input type="radio" name="genero-preferido" value="pop">
                         Pop
                     </label>
 
                     <label for="gospel">
-                        <input type="checkbox" name="gospel" value="gospel">
+                        <input type="radio" name="genero-preferido" value="gospel">
                         Gospel
                     </label>
 
                     <label for="eletronica">
-                        <input type="checkbox" name="eletronica" value="eletronica">
+                        <input type="radio" name="genero-preferido" value="eletronica">
                         Eletronica
                     </label>
 
@@ -105,8 +104,10 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
                     <textarea id="lista-artistas" name="lista-artistas" rows="5"></textarea>
                 </fieldset>
 
-                <input type="reset" value="Limpar">
-                <input type="submit" value="Enviar">
+                <div class="botoes">
+                    <input type="reset" value="Limpar">
+                    <input type="submit" value="Enviar">
+                </div>
 
             </form>
 
