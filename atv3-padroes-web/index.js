@@ -225,7 +225,7 @@ function validaForm() {
     //Valida formato de telefone
     const telInput = document.querySelector('[name=telefone]');
     if (telInput.value) {
-        const telRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+        const telRegex = /^\(?\d{2}\)?\s?\d{5}-?\d{4}$/;
         if (!telRegex.test(telInput.value)) {
             showError('telefone', 'Use o formato (XX) XXXXX-XXXX.');
             valido = false;
@@ -238,7 +238,7 @@ function validaForm() {
         // Mostra o erro no fieldset principal dos álbuns
         const fieldsetElement = document.getElementById('melhores-albuns');
         let erroSpan = document.getElementById('melhores-albuns-error');
-        if (!errrSpan) {
+        if (!erroSpan) {
             erroSpan = document.createElement('span');
             erroSpan.id = `melhores-albuns-error`;
             erroSpan.className = 'error-message';
