@@ -55,12 +55,9 @@ let artistas = []
 const dropdownArtista = document.getElementById('melhor-artista');
 const fieldsetAlbuns = document.getElementById('melhores-albuns');
 
-// Modifique sua função carregaDados para esta versão:
 function carregaDados(){
     const linhas = TEXTO.split('\n');
 
-    // Remove a lógica antiga de extração de dados daqui
-    // e apenas chama as novas funções
     populaArtistasAgrupados(linhas);
     populaAlbunsAgrupados(linhas);
 }
@@ -163,9 +160,7 @@ function populaArtistasAgrupados(linhas) {
 // Seleciona o formulário para adicionar o listener
 const form = document.querySelector('form');
 
-/**
- * Exibe uma mensagem de erro para um campo específico.
- */
+// Exibe uma mensagem de erro para um campo específico.
 function showError(inputId, message) {
     const input = document.querySelector(`[name=${inputId}]`);
     input.classList.add('error'); // Adiciona classe para estilizar o campo
@@ -182,9 +177,8 @@ function showError(inputId, message) {
     errorSpan.style.display = 'block';
 }
 
-/**
- * Limpa todas as mensagens de erro e classes de erro.
- */
+
+//Limpa todas as mensagens de erro e classes de erro.
 function clearErrors() {
     document.querySelectorAll('.error-message').forEach(span => {
         span.textContent = '';
