@@ -100,7 +100,7 @@ function populaAlbunsAgrupados(linhas) {
             const valorAlbum = album.toLowerCase().replace(/ /g, '-');
 
             checkboxAlbum.setAttribute('type', 'checkbox');
-            checkboxAlbum.setAttribute('name', 'albuns_preferidos'); // Nome unificado para facilitar a contagem
+            checkboxAlbum.setAttribute('name', 'albuns_preferidos'); //Nome unificado para facilitar a contagem
             checkboxAlbum.setAttribute('value', valorAlbum);
             
             labelCheckbox.appendChild(checkboxAlbum);
@@ -255,5 +255,8 @@ function validaForm() {
 form.addEventListener('submit', (event) => {
     if (!validaForm()) {
         event.preventDefault(); // Impede o envio do formulário se a validação falhar
+    }
+    else{
+        alert("Formulário enviado com sucesso!");
     }
 });

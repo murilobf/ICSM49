@@ -70,6 +70,14 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 5px red;
 }
 
+input[type="text"],input[type="email"]{
+    width: 30em;
+}
+
+input[type="tel"],input[type="date"]{
+    width: 12em;
+}
+
 input[type="submit"], input[type="reset"] {
     padding: 20px 35px;
 

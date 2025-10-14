@@ -39,53 +39,76 @@ Para itens que tiveram problema de validação, adicionar a informação do prob
                     <legend>Insira os dados pessoais</legend>
 
                     <label for="nome" class="obrigatorio">Nome</label>
-                    <input type="text" name="nome" required autofocus>
+                    <input type="text" name="nome" id="nome" required autofocus>
 
                     <label for="email" class="obrigatorio">Email</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" id="email" required>
 
                     <label for="telefone" class="obrigatorio">Telefone</label>
-                    <input type="tel" name="telefone" required placeholder="(XX) XXXXX-XXXX" >
+                    <input type="tel" name="telefone" id="telefone" required placeholder="(XX) XXXXX-XXXX" >
 
                     <label for="nascimento" class="obrigatorio">Data de Nascimento</label>
-                    <input type="date" name="nascimento" required>
+                    <input type="date" name="nascimento" id="nascimento" required>
 
-                    <label for="foto">Foto de Perfil</label>
-                    <input type="file" name="foto">
+                    <label for="foto">Foto de Perfil <small>.png ou .jpeg</small></label>
+                    <input type="file" name="foto" id="foto" accept="image/png, image/jpeg">
                 </fieldset>
 
+                <p>
+                    <small>Os dados abaixo (de gênero, álbuns e artistas) foram escolhidos com base nos 50 álbuns mais vendidos.</small>
+                </p>
                 <fieldset id="dados-estilo">
                     <legend>Selecione seu gênero musical preferido</legend>
  
-                    <label for="rock">
-                        <input type="radio" name="genero-preferido" value="rock" required>
-                        Rock
+                    <label for="folk">
+                        <input type="radio" name="genero-preferido" value="folk" id="folk" required>
+                        Folk
                     </label>
-
-                    <label for="mpb">
-                        <input type="radio" name="genero-preferido" value="mpb">    
-                        MPB
-                    </label>
-
-                    <label for="sertanejo">
-                        <input type="radio" name="genero-preferido" value="sertanejo">
-                        Sertanejo
-                    </label>
+                    
+                    <label for="blues">
+                        <input type="radio" name="genero-preferido" value="blues" id="blues">
+                        Blues
+                    </label>  
 
                     <label for="pop">
-                        <input type="radio" name="genero-preferido" value="pop">
+                        <input type="radio" name="genero-preferido" value="pop" id="pop">
                         Pop
+                    </label>  
+
+                    <label for="hard-rock">
+                        <input type="radio" name="genero-preferido" value="hard-rock" id="hard-rock">    
+                        Hard Rock
                     </label>
 
-                    <label for="gospel">
-                        <input type="radio" name="genero-preferido" value="gospel">
-                        Gospel
+                    <label for="psychedelic-rock">
+                        <input type="radio" name="genero-preferido" value="psychedelic-rock" id="psychedelic-rock">
+                        Psychedelic Rock
                     </label>
 
-                    <label for="eletronica">
-                        <input type="radio" name="genero-preferido" value="eletronica">
-                        Eletronica
+                    <label for="progressive-rock">
+                        <input type="radio" name="genero-preferido" value="progressive-rock" id="progressive-rock">
+                        Progressive Rock
                     </label>
+
+                    <label for="classic-rock">
+                        <input type="radio" name="genero-preferido" value="classic-rock" id="classic-rock">
+                        Classic Rock
+                    </label>
+
+                    <label for="pop-rock">
+                        <input type="radio" name="genero-preferido" value="pop-rock" id="pop-rock">
+                        Pop Rock
+                    </label>  
+
+                    <label for="heavy-metal">
+                        <input type="radio" name="genero-preferido" value="heavy-metal" id="heavy-metal">
+                        Heavy Metal
+                    </label>
+
+                    <label for="nu-metal">
+                        <input type="radio" name="genero-preferido" value="nu-metal" id="nu-metal">
+                        Nu Metal
+                    </label> 
 
                 </fieldset>
 
